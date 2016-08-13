@@ -15,3 +15,4 @@ class ImageReader:
 			print 'Cannot find image at %s' % image_path
 			exit(1)
 		img = cv2.imread(image_path)
+		return img

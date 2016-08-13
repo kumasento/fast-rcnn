@@ -18,14 +18,16 @@ NETS = {'vgg16': ('VGG16','vgg16_fast_rcnn_iter_40000.caffemodel'),
 		'caffenet': ('CaffeNet', 'caffenet_fast_rcnn_iter_40000.caffemodel')}
 
 class Detector:
-	def __init__(self, net_name='caffenet'):
+	def __init__(self, net_name='caffenet', mode='gpu'):
 
 		# initialize caffe
 		self._prototxt   = os.path.join(cfg.ROOT_DIR, 'models', NETS[net_name][0], 'test.prototxt')
 		self._caffemodel = os.path.join(cfg.ROOT_DIR, 'data', 'fast_rcnn_models', NETS[net_name][1])
-
-		caffe.set_mode_gpu()
-		caffe.set_device(0)
+		if mode == 'gpu':
+			caffe.set_mode_gpu()
+			caffe.set_device(0)
+		elif mode == 'cpu':
+			caffe.set_mode_cpu()
 		self._net = caffe.Net(self._prototxt, self._caffemodel, caffe.TEST)
 	
 	def detect(self, img, candidates):

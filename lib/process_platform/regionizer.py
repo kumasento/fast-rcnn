@@ -39,3 +39,4 @@ class Regionizer:
 		for x, y, h, w in candidates:
 			ax.add_patch(patches.Rectangle((x,y), h, w, fill=False, edgecolor='red'))
 		plt.show()
+		return candidates
